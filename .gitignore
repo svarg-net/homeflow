@@ -1,0 +1,22 @@
+# Секреты и настройки окружения
+.env
+.env.local
+
+# Зависимости
+node_modules/
+vendor/
+.pub-cache/
+.dart_tool/
+
+# Сборка и логи
+/backend/storage/*.key
+/backend/storage/logs/*.log
+/backend/bootstrap/cache/*.php
+/frontend-desktop/dist/
+/frontend-desktop/src-tauri/target/
+.rr.yaml
+
+# Системные файлы
+.DS_Store
+.idea/
+.vscode/
