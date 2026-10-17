@@ -1,22 +1,76 @@
+# ==========================================
 # Секреты и настройки окружения
+# ==========================================
 .env
 .env.local
+.env.*.local
+!.env.example
 
+# ==========================================
 # Зависимости
+# ==========================================
 node_modules/
 vendor/
 .pub-cache/
 .dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
 
-# Сборка и логи
+# ==========================================
+# Laravel Backend
+# ==========================================
 /backend/storage/*.key
-/backend/storage/logs/*.log
+/backend/storage/framework/cache/data/*
+/backend/storage/framework/sessions/*
+/backend/storage/framework/views/*
+/backend/storage/logs/*
 /backend/bootstrap/cache/*.php
-/frontend-desktop/dist/
-/frontend-desktop/src-tauri/target/
-.rr.yaml
+/backend/public/storage
+/backend/public/build
+/backend/public/hot
+/backend/.phpunit.result.cache
 
-# Системные файлы
+# ==========================================
+# Frontend Desktop (Vue + Tauri)
+# ==========================================
+/frontend-desktop/node_modules/
+/frontend-desktop/dist/
+/frontend-desktop/dist-ssr/
+/frontend-desktop/src-tauri/target/
+/frontend-desktop/*.local
+
+# ==========================================
+# Mobile (Flutter)
+# ==========================================
+/mobile/.dart_tool/
+/mobile/build/
+/mobile/.flutter-plugins
+/mobile/.flutter-plugins-dependencies
+/mobile/.packages
+/mobile/ios/.symlinks/
+/mobile/ios/Pods/
+/mobile/android/.gradle/
+/mobile/android/captures/
+/mobile/android/app/build/
+
+# ==========================================
+# Системные и IDE файлы
+# ==========================================
 .DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
 .idea/
-.vscode/
+!.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# ==========================================
+# RoadRunner
+# ==========================================
+.rr.yaml

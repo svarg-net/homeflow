@@ -1,0 +1,74 @@
+# homeflow/backend/docker-compose.yml
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: homeflow_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8000:8000" # Laravel Octane / RoadRunner
+      - "8080:8080" # Laravel Reverb (WebSockets)
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+    depends_on:
+      - db
+      - redis
+    networks:
+      - homeflow_network
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: homeflow_queue
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+    environment:
+      - APP_ENV=local
+    depends_on:
+      - db
+      - redis
+    networks:
+      - homeflow_network
+
+  db:
+    image: postgres:18-alpine
+    container_name: homeflow_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: homeflow
+      POSTGRES_USER: homeflow_user
+      POSTGRES_PASSWORD: homeflow_password
+    volumes:
+      - homeflow_pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - homeflow_network
+
+  redis:
+    image: redis:8-alpine
+    container_name: homeflow_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - homeflow_redisdata:/data
+    networks:
+      - homeflow_network
+
+volumes:
+  homeflow_pgdata:
+  homeflow_redisdata:
+
+networks:
+  homeflow_network:
+    driver: bridge
