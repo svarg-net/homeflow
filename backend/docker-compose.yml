@@ -9,6 +9,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
+      - /var/www/html/vendor
     ports:
       - "8000:8000" # Laravel Octane / RoadRunner
       - "8080:8080" # Laravel Reverb (WebSockets)
@@ -17,7 +18,7 @@ services:
       - APP_DEBUG=true
     depends_on:
       - db
-      - redis
+      # - redis
     networks:
       - homeflow_network
 
